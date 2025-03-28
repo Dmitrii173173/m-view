@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import useComments from "../hooks/useComments";
+import { COMMENTS_TITLE, NO_COMMENTS } from "../constants";
 
 function CommentList({ postId }) {
-  const [comments, setComments] = useState([]);
-
-  useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
-      .then((response) => response.json())
-      .then((data) => setComments(data))
-      .catch((error) => console.error("error", error));
-  }, [postId]);
+  const comments = useComments(postId);
 
   return (
     <div>
-      <h4>Комментарии:</h4>
+      <h4>{COMMENTS_TITLE}</h4>
       {comments.length === 0 ? (
-        <p>Нет комментариев</p>
+        <p>{NO_COMMENTS}</p>
       ) : (
         comments.map((comment) => (
           <div key={comment.id}>

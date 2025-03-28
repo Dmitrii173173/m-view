@@ -1,15 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PostList from "./components/PostList";
+import usePosts from "./hooks/usePosts";
 
 function App() {
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
-      .then((response) => response.json())
-      .then((data) => setPosts(data.slice(0, 10)))
-      .catch((error) => console.error("error", error));
-  }, []);
+  const posts = usePosts();
 
   return (
     <div>
